@@ -11,7 +11,9 @@ FILES_WITH_TEMPLATE_INSIDE = [
     "api.py",
     "db.py",
     "pyproject.toml",
-    "Dockerfile"
+    "Dockerfile",
+    "lint.sh",
+    "test.sh"
 ]
 
 FILES_TO_IGNORE = [
