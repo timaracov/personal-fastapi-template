@@ -9,6 +9,7 @@ TEMPLATE_NAME = "__project_name__"
 FILES_WITH_TEMPLATE_INSIDE = [
     "logging.py",
     "api.py",
+    "db.py",
     "pyproject.toml",
     "Dockerfile"
 ]
