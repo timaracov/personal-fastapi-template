@@ -11,6 +11,8 @@ from settings.logging import configure_logging
 
 from .handlers.v1 import v1_router
 
+from .exceptions import EXCEPTION_NANDLER_STACK
+
 
 main_router = APIRouter(prefix="/api")
 main_router.include_router(v1_router)
@@ -24,11 +26,12 @@ def create_api():
     configure_logging()
 
     api = FastAPI(
-        **SWAGGER_CONFIG.dict(),
+        **SWAGGER_CONFIG.model_dump(),
         debug=API_CONFIG.DEBUG,
         version=API_CONFIG.VERSION,
     )
 
+    api.exception_handlers.update(EXCEPTION_NANDLER_STACK)
 
     api.include_router(main_router)
     api.add_middleware(

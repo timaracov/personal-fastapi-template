@@ -5,9 +5,18 @@ from pathlib import Path
 
 
 TEMPLATE_NAME = "__project_name__"
+
 FILES_WITH_TEMPLATE_INSIDE = [
     "logging.py",
-    "api.py"
+    "api.py",
+    "pyproject.toml",
+    "Dockerfile"
+]
+
+FILES_TO_IGNORE = [
+    "make.py",
+    "setup.py",
+    "README.md",
 ]
 
 
@@ -16,9 +25,14 @@ def main(project_name):
     current_folder = Path(os.getcwd())
 
     shutil.copytree(template_folder/TEMPLATE_NAME, current_folder/project_name) 
+    for file in os.listdir(template_folder):
+        src = os.path.join(template_folder, file)
+        if os.path.isfile(src) and file not in FILES_TO_IGNORE:
+            dst = os.path.join(current_folder, file)
+            shutil.copyfile(src, dst)
 
     to_repl = []
-    for dir, dirnames, files in os.walk(current_folder/project_name):
+    for dir, dirnames, files in os.walk(current_folder):
         for dirname in dirnames:
             if TEMPLATE_NAME in dirname:
                 new_name = dirname.replace(TEMPLATE_NAME, project_name)
@@ -53,6 +67,7 @@ def main(project_name):
 
 if __name__ == "__main__":
     from sys import argv
+
     try:
         project_name = argv[1]
     except:
