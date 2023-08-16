@@ -26,12 +26,7 @@ class PostgresConfig(ConfigBase):
     PG_DB: str = "__project_name___db"
 
     def build_uri(self):
-        if API_CONFIG.ENV == "test":
-            return f"mongodb://{self.PG_USER}:{self.PG_PASS}@{self.PG_HOST}:{self.PG_PORT}"
-        else:
-            return (
-                f"mongodb+srv://{self.PG_USER}:{self.PG_PASS}@{self.PG_HOST}"
-            )
+        return f"postgersql://{self.PG_USER}:{self.PG_PASS}@{self.PG_HOST}:{self.PG_PORT}/{self.PG_DB}"
 
 
 MONGO_CONFIG = MongoConfig()
