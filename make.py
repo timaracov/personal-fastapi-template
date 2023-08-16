@@ -19,13 +19,15 @@ def main(project_name):
 
     to_repl = []
     for dir, dirnames, files in os.walk(current_folder/project_name):
-        if TEMPLATE_NAME in dirnames:
-            to_repl.append(
-                (
-                    os.path.join(dir, TEMPLATE_NAME),
-                    os.path.join(dir, project_name)
+        for dirname in dirnames:
+            if TEMPLATE_NAME in dirname:
+                new_name = dirname.replace(TEMPLATE_NAME, project_name)
+                to_repl.append(
+                    (
+                        os.path.join(dir, dirname),
+                        os.path.join(dir, new_name)
+                    )
                 )
-            )
         for file in files:
             if TEMPLATE_NAME in file:
                 ext = "."+file.split(".")[-1]
