@@ -7,8 +7,10 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 from settings.db import MONGO_CONFIG
 
+from ..abc_base import AbstractBaseController
 
-class DbBaseController:
+
+class DbBaseController(AbstractBaseController):
     """
     Base class for database controllers for mongodb.
 
